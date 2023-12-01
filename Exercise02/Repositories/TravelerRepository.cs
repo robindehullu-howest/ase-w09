@@ -1,54 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Exercise03.Repositories;
+namespace Exercise02.Repositories;
 
-public interface ITravelerRepository
+public class TravelerRepository : Repository<Traveler>
 {
-    Task<List<Traveler>> GetAllAsync();
-    Task<Traveler> GetByIdAsync(int id);
-    Task<Traveler> CreateAsync(Traveler traveler);
-    Task<Traveler> UpdateAsync(Traveler traveler);
-    Task DeleteAsync(int id);
-}
-
-public class TravelerRepository : ITravelerRepository
-{
-    private readonly TravelContext _context;
-
-    public TravelerRepository(TravelContext context)
+    public TravelerRepository(TravelContext context) : base(context)
     {
-        _context = context;
     }
 
-    public async Task<List<Traveler>> GetAllAsync()
+    public override async Task<Traveler> GetByIdAsync(int id)
+    {
+        return await _context.Travelers.Include(d => d.Destinations).FirstOrDefaultAsync(t => t.Id == id);
+    }
+
+    public override async Task<List<Traveler>> GetAllAsync()
     {
         return await _context.Travelers.Include(p => p.Passport).ToListAsync();
     }
-
-    public async Task<Traveler> GetByIdAsync(int id)
-    {
-        return await _context.Travelers.Include(t => t.Destinations).FirstOrDefaultAsync(t => t.Id == id);
-    }
-
-    public async Task<Traveler> CreateAsync(Traveler traveler)
-    {
-        _context.Travelers.Add(traveler);
-        await _context.SaveChangesAsync();
-        return traveler;
-    }
-
-    public async Task<Traveler> UpdateAsync(Traveler traveler)
-    {
-        _context.Travelers.Update(traveler);
-        await _context.SaveChangesAsync();
-        return traveler;
-    }
-
-    public async Task DeleteAsync(int id)
-    {
-        var traveler = await _context.Travelers.FindAsync(id);
-        _context.Travelers.Remove(traveler);
-        await _context.SaveChangesAsync();
-    }
-
 }

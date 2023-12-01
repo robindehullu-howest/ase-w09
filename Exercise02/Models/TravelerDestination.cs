@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Exercise03.Models;
+namespace Exercise02.Models;
 
 [Table("travelerdestinations")]
 public class TravelerDestination

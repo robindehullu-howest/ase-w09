@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Exercise03.Models;
+namespace Exercise02.Models;
 
 [Table("travelers")]
-public class Traveler
+public class Traveler : IEntity
 {
     [Key]
     public int Id {get; set;}

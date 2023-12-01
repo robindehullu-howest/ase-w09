@@ -1,4 +1,4 @@
-global using Exercise03.Models;
-global using Exercise03.Repositories;
-global using Exercise03.Services;
-global using Exercise03.Context;
+global using Exercise02.Models;
+global using Exercise02.Repositories;
+global using Exercise02.Services;
+global using Exercise02.Context;

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Exercise03.Repositories;
+namespace Exercise02.Repositories;
 
 public interface IPassportRepository
 {
